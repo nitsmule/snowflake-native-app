@@ -34,4 +34,4 @@ jobs:
           pip install snowflake-cli-labs
       - name: Create Snowflake Connection
         run: |
-          snow app run --temporary-connection -account $SNOWFLAKE_ACCOUNT -user $SNOWFLAKE_USER -password $SNOWFLAKE_PASSWORD
+          snow app run --temporary-connection --account $SNOWFLAKE_ACCOUNT --user $SNOWFLAKE_USER --password $SNOWFLAKE_PASSWORD

@@ -34,5 +34,5 @@ jobs:
           pip install snowflake-cli-labs
       - name: Create Snowflake Connection
         run: |
-          snow connection add -n sf_connection -a $SF_ACCOUNT -u $SF_USER -pass $SF_PWD
+          snow connection add -n sf_connection -a $SF_ACCOUNT -u $SF_USER 
           snow connection list

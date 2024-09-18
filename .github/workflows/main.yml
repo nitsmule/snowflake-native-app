@@ -1,0 +1,41 @@
+# Very basic GitHub Action workflow, goes in ~/.github/workflows/deploy.yaml
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on any branch or tag commit
+  push:
+    branches:
+      - "main"
+    tags:
+      - "v*"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "deploy"
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SNOWSQL_PWD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWSQL_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USERNAME }}
+      SNOWSQL_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      SNOWSQL_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+      SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      SNOWSQL_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Install Snow CLI
+        run: |
+          pip install snowflake-cli-labs
+      - name: Upload artifact to SnowSQL
+        run: |
+          snow app run
